@@ -1,0 +1,30 @@
+// === State ===
+
+// === Components ===
+
+// === Render ===
+function render() {
+  const $app = document.querySelector("#app");
+  //I need similar HTML elements as the gala guided practice, changing h1 to Party Planner, 1st h2 to Upcoming Parties, ArtistList to PartyList, 2nd h2 to Party Details, ArtistDetails to PartyDetails
+  $app.innerHTML = `
+    <h1>Party Planner</h1>
+    <main>
+      <section>
+        <h2>Upcoming Parties</h2>
+        <PartyList></PartyList>
+      </section>
+      <section id="selected">
+        <h2>Party Details</h2>
+        <PartyDetails></PartyDetails>
+      </section>
+    </main>
+  `;
+  $app.querySelector("PartyList").replaceWith(PartyList());
+  $app.querySelector("PartyDetails").replaceWith(PartyDetails());
+}
+
+async function init() {
+  render();
+}
+
+init();
