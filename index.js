@@ -1,3 +1,9 @@
+// === Constants ===
+const BASE = "https://fsa-crud-2aa9294fe819.herokuapp.com/api";
+const COHORT = "2604-FTB-ET-WEB-FT";
+const RESOURCE = "/events";
+const API = BASE + COHORT + RESOURCE;
+
 // === State ===
 
 // === Components ===
