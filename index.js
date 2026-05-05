@@ -5,6 +5,21 @@ const RESOURCE = "/events";
 const API = BASE + COHORT + RESOURCE;
 
 // === State ===
+let events = [];
+let selectedEvent;
+
+/**Update state with all events from the API
+ */
+async function getEvents() {
+  try {
+    const response = await fetch(API);
+    const result = await response.json();
+    events = result.data;
+    render();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // === Components ===
 
