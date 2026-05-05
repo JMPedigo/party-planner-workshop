@@ -21,6 +21,18 @@ async function getEvents() {
   }
 }
 
+/**Update state with single event from API
+ */
+async function getEvent() {
+  try {
+    const response = await fetch(API + "/" + id);
+    const result = await response.json();
+    selectedEvent = result.data;
+    render();
+  } catch (error) {
+    console.error(error);
+  }
+}
 // === Components ===
 
 // === Render ===
