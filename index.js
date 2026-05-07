@@ -32,7 +32,9 @@ async function getEvent() {
     console.error(error);
   }
 }
+
 // === Components ===
+
 /**I need a single list item containing details about the event when clicked */
 function EventListItem() {
   const $li = document.createElement("li");
@@ -58,19 +60,34 @@ function EventList() {
   return $ul;
 }
 
+/** I need a function to show selected event information */
 function SelectedEvent() {
   if (!selectEvent) {
     const $p = document.createElement("p");
-    $p.textContent = "Please select a party to learn more.";
+    $p.textContent = "Please select a event to learn more.";
     return $p;
   }
+
+  const $event = document.createElement("section");
+  $event.innerHTML = `
+    <h3>${selectedEvent.name} #${selectedEvent.id}</h3>
+    <time datetime="${selectedEvent.date}">
+      ${selectedEvent.date.slice(0, 10)}
+    </time>
+    <address>${selectedEvent.location}<?address>
+    <p>&{selectedEvent.description}</p>
+    <GuestList></GuestList>
+    `;
+  $event.querySelector("GuestList").replaceWith(GuestList());
 }
+
 // === Render ===
+
 function render() {
   const $app = document.querySelector("#app");
-  //I need similar HTML elements as the gala guided practice, changing h1 to Party Planner, 1st h2 to Upcoming Parties, ArtistList to PartyList, 2nd h2 to Party Details, ArtistDetails to PartyDetails
+  //I need similar HTML elements as the gala guided practice, changing h1 to event Planner, 1st h2 to Upcoming Parties, ArtistList to eventList, 2nd h2 to event Details, ArtistDetails to eventDetails
   $app.innerHTML = `
-    <h1>Party Planner</h1>
+    <h1>event Planner</h1>
     <main>
       <section>
         <h2>Upcoming Parties</h2>
