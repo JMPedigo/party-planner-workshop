@@ -6,12 +6,14 @@ const API = BASE + COHORT;
 // === State ===
 let events = [];
 let selectedEvent;
+let rsvps = [];
+let guests = [];
 
 /**Update state with all events from the API
  */
 async function getEvents() {
   try {
-    const response = await fetch(API);
+    const response = await fetch(API + "/events");
     const result = await response.json();
     events = result.data;
     render();
@@ -22,11 +24,35 @@ async function getEvents() {
 
 /**Update state with single event from API
  */
-async function getEvent() {
+async function getEvent(id) {
   try {
-    const response = await fetch(API + "/" + id);
+    const response = await fetch(API + "/events" + id);
     const result = await response.json();
     selectedEvent = result.data;
+    render();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+/** Update state with RSVPs from API */
+async function getRsvps() {
+  try {
+    const response = await fetch(API + "/rsvps");
+    const result = await response.json();
+    rsvps = result.data;
+    render();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+/** Update state with guests from API */
+async function getGuests() {
+  try {
+    const response = await fetch(API + "/guests");
+    const result = await response.json();
+    guests = result.data;
     render();
   } catch (error) {
     console.error(error);
@@ -79,8 +105,19 @@ function SelectedEvent() {
     <GuestList></GuestList>
     `;
   $event.querySelector("GuestList").replaceWith(GuestList());
+
+  return $event;
 }
 
+/** I need a list of guests for the SelectedEvent */
+function GuestList() {
+  const $ul = document.createElement("ul");
+  const selectedGuestList = guests.filter((guest) =>
+    rsvps.find(
+      (rsvp) => rsvp.guestId === guest.id && rsvp.eventId === selectedEvent.id,
+    ),
+  );
+}
 // === Render ===
 
 function render() {
