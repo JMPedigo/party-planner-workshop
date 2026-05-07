@@ -1,8 +1,7 @@
 // === Constants ===
 const BASE = "https://fsa-crud-2aa9294fe819.herokuapp.com/api";
 const COHORT = "2604-FTB-ET-WEB-FT";
-const RESOURCE = "/events";
-const API = BASE + COHORT + RESOURCE;
+const API = BASE + COHORT;
 
 // === State ===
 let events = [];
@@ -34,7 +33,38 @@ async function getEvent() {
   }
 }
 // === Components ===
+/**I need a single list item containing details about the event when clicked */
+function EventListItem() {
+  const $li = document.createElement("li");
 
+  if (event.id === selectedEvent.id) {
+    $li.classList.add("selected");
+  }
+
+  $li.innerHTML = `<a href="#selected">${event.name}</a>
+  `;
+  $li.addEventListener("click", () => getEvent(event.id));
+  return $li;
+}
+
+/**I need a list of event names */
+function EventList() {
+  const $ul = document.createElement("ul");
+  $ul.classList.add("events");
+
+  const $events = events.map(EventListItem);
+  $ul.replaceChildren(...$events);
+
+  return $ul;
+}
+
+function SelectedEvent() {
+  if (!selectEvent) {
+    const $p = document.createElement("p");
+    $p.textContent = "Please select a party to learn more.";
+    return $p;
+  }
+}
 // === Render ===
 function render() {
   const $app = document.querySelector("#app");
@@ -52,8 +82,8 @@ function render() {
       </section>
     </main>
   `;
-  $app.querySelector("PartyList").replaceWith(PartyList());
-  $app.querySelector("PartyDetails").replaceWith(PartyDetails());
+  $app.querySelector("PartyList").replaceWith(EventList());
+  $app.querySelector("PartyDetails").replaceWith(EventDetails());
 }
 
 async function init() {
