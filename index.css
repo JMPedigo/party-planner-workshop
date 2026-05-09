@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 1rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+main {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (width >= 600px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.parties {
+  display: grid;
+  gap: 1rem;
+  padding-left: 0;
+}
+
+.parties a {
+  display: block;
+  border: 1px solid grey;
+  border-radius: 0.35rem;
+  padding: 5px;
+  text-decoration: none;
+  color: black;
+}
+
+.parties a:hover {
+  background: #e78c8c;
+  font-style: italic;
+}
+
+.parties li.selected {
+  font-weight: bold;
+  font-style: italic;
+}
